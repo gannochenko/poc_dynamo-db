@@ -20,8 +20,8 @@ functions:
     # to call our function from outside, we need to expose it to the outer world
     # in order to do so, we create a REST endpoint
     events:
-      - grahpql:
-          path: hello # path for the endpoint
+      - http:
+          path: graphql # path for the endpoint
           method: any # HTTP method for the endpoint, could be only 'post' or 'get', etc
           # cors: true
 
