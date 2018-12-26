@@ -15,12 +15,12 @@ provider:
 
 # here we describe our lambda function
 functions:
-  hello: # function name
+  graphql: # function name
     handler: src/handler.main # where the actual code is located
     # to call our function from outside, we need to expose it to the outer world
     # in order to do so, we create a REST endpoint
     events:
-      - http:
+      - grahpql:
           path: hello # path for the endpoint
           method: any # HTTP method for the endpoint, could be only 'post' or 'get', etc
           # cors: true
