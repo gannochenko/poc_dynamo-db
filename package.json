@@ -16,5 +16,6 @@
   "bugs": {
     "url": "https://github.com/awesome1888/poc_apollo-graphql-serverless/issues"
   },
-  "homepage": "https://github.com/awesome1888/poc_apollo-graphql-serverless#readme"
+  "homepage": "https://github.com/awesome1888/poc_apollo-graphql-serverless#readme",
+  "devDependencies": {}
 }
