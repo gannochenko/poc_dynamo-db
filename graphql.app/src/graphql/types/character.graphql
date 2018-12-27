@@ -1,0 +1,5 @@
+type Character {
+    id: String!
+    fullName: String!
+    movies: [Movie]!
+}
