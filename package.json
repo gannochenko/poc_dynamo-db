@@ -1,0 +1,20 @@
+{
+  "name": "poc_apollo-graphql-serverless",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "docker-compose -f compose.yml up"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/awesome1888/poc_apollo-graphql-serverless.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/awesome1888/poc_apollo-graphql-serverless/issues"
+  },
+  "homepage": "https://github.com/awesome1888/poc_apollo-graphql-serverless#readme"
+}
