@@ -1,6 +1,8 @@
 import { ApolloServer } from 'apollo-server-lambda';
 import resolvers from './graphql/resolvers';
 import typeDefs from './graphql/types';
+import characterSource from './graphql/dataSources/character';
+import movieSource from './graphql/dataSources/movie';
 
 // creating the server
 const server = new ApolloServer({
@@ -12,10 +14,13 @@ const server = new ApolloServer({
     // initial context state, will be available in resolvers
     context: () => ({}),
 
-    // an object that contains instances for data sources
-    // this object is available in resolvers
+    // an object that goes to the "context" argument
+    // when executing resolvers
     dataSources: () => {
-        return {};
+        return {
+            characterSource,
+            movieSource,
+        };
     },
 });
 

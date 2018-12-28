@@ -1,38 +1,25 @@
-const movies = [
-    {
-        id: '1',
-        title: 'A New Hope',
-        characters: [1, 2, 3, 4, 5],
-    },
-    {
-        id: '2',
-        title: 'The Empire Strikes Back',
-        characters: [1, 2, 3],
-    },
-    {
-        id: '3',
-        title: 'Return of the Jedi',
-        characters: [30, 31, 45],
-    },
-];
-
 export default {
     Query: {
-        movies: async (source, args, context, state) => {
-            return movies;
+        movies: async (source, args, { dataSources }, state) => {
+            return dataSources.movieSource(null);
         },
-        movie: async (source, args, context, state) => {
+        movie: async (source, args, { dataSources }, state) => {
             // by using "args" argument we can get access
             // to query arguments
             const { id } = args;
-            return movies.find(movie => movie.id === id);
+
+            const result = dataSources.movieSource([id]);
+            if (result && result[0]) {
+                return result[0];
+            }
+
+            return null;
         },
     },
 
     Movie: {
-        movie: async (source, args, context, state) => {
-            console.dir(source);
-            return [];
+        characters: async (source, args, { dataSources }, state) => {
+            return dataSources.characterSource(source.characters);
         },
     }
 };

@@ -1,8 +1,7 @@
 export default {
     Character: {
-        character: async (source, args, context, state) => {
-            console.dir(source);
-            return {};
+        movies: async (source, args, { dataSources }, state) => {
+            return dataSources.movieSource(source.movies);
         },
     }
 };
