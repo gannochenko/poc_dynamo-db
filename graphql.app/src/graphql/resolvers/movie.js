@@ -18,7 +18,8 @@ export default {
     },
 
     Movie: {
-        characters: async (source, args, { dataSources }, state) => {
+        characters: async (source, args, { dataSources }) => {
+            console.dir('Executing Movie.characters resolver');
             return dataSources.characterSource(source.characters);
         },
     }
