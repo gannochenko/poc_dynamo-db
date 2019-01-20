@@ -6,6 +6,5 @@ type Character {
 }
 
 type Mutation {
-    equipWeapon(characterId: String!, weaponId: String!): String
-    unEquipWeapon(characterId: String!, weaponId: String!): String
+    equipWeapon(characterId: String!, weaponId: String!): Result
 }

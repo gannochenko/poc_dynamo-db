@@ -3,5 +3,21 @@ export default {
         movies: async (source, args, { dataSources }, state) => {
             return dataSources.movieSource(source.movies);
         },
-    }
+    },
+    Mutation: {
+        equipWeapon: async (source, args, { dataSources }, state) => {
+            const { characterId, weaponId } = args;
+            const { weaponSource } = dataSources;
+
+            let result = {};
+            try {
+                result = weaponSource.addCharacter(weaponId, characterId);
+            } catch(e) {
+                console.error(e);
+                result.error = 'Internal error';
+            }
+
+            return result;
+        },
+    },
 };

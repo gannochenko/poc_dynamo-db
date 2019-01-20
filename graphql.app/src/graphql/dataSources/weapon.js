@@ -33,6 +33,52 @@ export default class WeaponSource {
         });
     }
 
+    async addCharacter(id, characterId) {
+        const result = {};
+        const res = await this.get(id);
+        if (res && res.Item) {
+            const characters = res.Item.characters || {
+                L: [],
+            };
+            characters.L.push({
+                S: characterId,
+            });
+
+            const db = await this.getDatabase();
+            await db.updateItem({
+                TableName: 'weapon',
+                Key: {
+                    id: {
+                        S: id.toString(),
+                    },
+                },
+                ExpressionAttributeNames: {
+                    "#CHARACTERS": "characters",
+                },
+                ExpressionAttributeValues: {
+                    ":c": characters,
+                },
+                UpdateExpression: "SET #CHARACTERS = :c"
+            });
+        } else {
+            result.error = 'Item not found';
+        }
+
+        return result;
+    }
+
+    async get(id) {
+        const db = await this.getDatabase();
+        return db.getItem({
+            TableName: 'weapon',
+            Key: {
+                id: {
+                    S: id.toString(),
+                },
+            },
+        });
+    }
+
     async delete(id) {
         const db = await this.getDatabase();
         await db.deleteItem({

@@ -43,6 +43,18 @@ export default class Database {
         });
     }
 
+    async getItem(params) {
+        return new Promise((resolve, reject) => {
+            this._connection.getItem(params, (err, data) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(data);
+                }
+            });
+        });
+    }
+
     async updateItem(params) {
         return new Promise((resolve, reject) => {
             this._connection.updateItem(params, (err, data) => {
