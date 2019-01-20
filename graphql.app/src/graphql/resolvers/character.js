@@ -11,7 +11,7 @@ export default {
 
             let result = {};
             try {
-                result = weaponSource.addCharacter(weaponId, characterId);
+                result = weaponSource.giveToCharacter(weaponId, characterId);
             } catch(e) {
                 console.error(e);
                 result.error = 'Internal error';

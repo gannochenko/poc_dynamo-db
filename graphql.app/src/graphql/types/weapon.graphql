@@ -4,26 +4,30 @@ enum WeaponType {
 }
 
 type WeaponParameters {
-    type: WeaponType!,
-    damage: Int!
-}
-
-type Weapon {
-    id: String
     name: String!
-    parameters: WeaponParameters!
-    characters: [Character]!
+    value: String!
 }
 
 input WeaponParametersInput {
-    type: WeaponType,
+    name: String!
+    value: String!
+}
+
+type Weapon {
+    id: String!
+    name: String!
+    type: WeaponType!
     damage: Int
+    parameters: [WeaponParameters]
+    characters: [Character]
 }
 
 input WeaponInput {
     id: String
-    name: String
-    parameters: WeaponParametersInput!
+    name: String!
+    type: WeaponType!
+    damage: Int
+    parameters: [WeaponParametersInput]
 }
 
 type Mutation {
