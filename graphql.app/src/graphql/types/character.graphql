@@ -2,4 +2,10 @@ type Character {
     id: String!
     fullName: String!
     movies: [Movie]!
+    weapon: [Weapon]
+}
+
+type Mutation {
+    equipWeapon(characterId: String!, weaponId: String!): String
+    unEquipWeapon(characterId: String!, weaponId: String!): String
 }

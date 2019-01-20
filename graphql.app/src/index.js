@@ -3,6 +3,7 @@ import resolvers from './graphql/resolvers';
 import typeDefs from './graphql/types';
 import characterSource from './graphql/dataSources/character';
 import movieSource from './graphql/dataSources/movie';
+import WeaponSource from './graphql/dataSources/weapon';
 
 // creating the server
 const server = new ApolloServer({
@@ -20,6 +21,7 @@ const server = new ApolloServer({
         return {
             characterSource,
             movieSource,
+            weaponSource: new WeaponSource(),
         };
     },
 });

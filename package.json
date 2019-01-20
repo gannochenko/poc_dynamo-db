@@ -17,5 +17,12 @@
     "url": "https://github.com/awesome1888/poc_apollo-graphql-serverless/issues"
   },
   "homepage": "https://github.com/awesome1888/poc_apollo-graphql-serverless#readme",
-  "devDependencies": {}
+  "devDependencies": {
+    "npm-preinstall": "^1.0.7"
+  },
+  "workspaces": {
+    "packages": [
+      "*.app"
+    ]
+  }
 }

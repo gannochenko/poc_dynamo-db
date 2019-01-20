@@ -1,0 +1,32 @@
+enum WeaponType {
+    LIGHTSABER
+    BLASTER
+}
+
+type WeaponParameters {
+    type: WeaponType!,
+    damage: Int!
+}
+
+type Weapon {
+    id: String
+    name: String!
+    parameters: WeaponParameters!
+    characters: [Character]!
+}
+
+input WeaponParametersInput {
+    type: WeaponType,
+    damage: Int
+}
+
+input WeaponInput {
+    id: String
+    name: String
+    parameters: WeaponParametersInput!
+}
+
+type Mutation {
+    putWeapon(data: WeaponInput!): Result
+    deleteWeapon(id: String!): Result
+}
