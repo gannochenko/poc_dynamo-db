@@ -3,6 +3,9 @@ export default {
         movies: async (source, args, { dataSources }, state) => {
             return dataSources.movieSource(source.movies);
         },
+        weapon: async (source, args, { dataSources }, state) => {
+            return await dataSources.weaponSource.getForCharacter(source.id);
+        },
     },
     Mutation: {
         equipWeapon: async (source, args, { dataSources }, state) => {

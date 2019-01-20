@@ -5,7 +5,6 @@ export default class WeaponSource {
     async put(data) {
 
         const parameters = data.parameters || [];
-        // always check against a white list what you save to the database
         const allowedParams = ['color'];
 
         const item = {
@@ -19,6 +18,7 @@ export default class WeaponSource {
                 N: data.damage ? data.damage.toString() : 0,
             },
             parameters: {
+                // always check what you save to the database, against a white list
                 M: parameters.filter(x => allowedParams.indexOf(x.name) >= 0).reduce((result, item) => {
                     result[item.name] = {
                         S: item.value ? item.value.toString() : '',
@@ -33,8 +33,6 @@ export default class WeaponSource {
         } else {
             item.id = {S: stringGen(12)};
         }
-
-        console.dir(item);
 
         const db = await this.getDatabase();
         await db.putItem({
@@ -63,18 +61,56 @@ export default class WeaponSource {
                     },
                 },
                 ExpressionAttributeNames: {
-                    "#CHARACTERS": "characters",
+                    '#CHARACTERS': 'characters',
                 },
                 ExpressionAttributeValues: {
-                    ":c": characters,
+                    ':c': characters,
                 },
-                UpdateExpression: "SET #CHARACTERS = :c"
+                UpdateExpression: 'SET #CHARACTERS = :c'
             });
         } else {
             result.error = 'Item not found';
         }
 
         return result;
+    }
+
+    async getForCharacter(id) {
+        const db = await this.getDatabase();
+        const result = await db.scan({
+            TableName: 'weapon',
+            ExpressionAttributeValues: {
+                ':cId': {
+                    S: id,
+                },
+            },
+            FilterExpression: 'contains(characters, :cId)',
+        });
+
+        if (result && result.Items) {
+            // need to "decode" the items, i know this is annoying
+            return result.Items.map((item) => {
+
+                const p = item.parameters ? item.parameters.M : {};
+                const parameters = [];
+                Object.keys(p).forEach((k) => {
+                    parameters.push({
+                        name: k,
+                        value: p[k].S,
+                    });
+                });
+
+                return {
+                    name: item.name.S,
+                    damage: item.damage.N,
+                    id: item.id.S,
+                    type: item.type.S,
+                    parameters,
+                };
+            });
+        }
+
+        return [];
     }
 
     async get(id) {

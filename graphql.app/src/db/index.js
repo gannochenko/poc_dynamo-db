@@ -67,10 +67,15 @@ export default class Database {
         });
     }
 
-    async scan(tableName, params = {}) {
-        return this.wrapAsync('scan', {
-            TableName: tableName,
-            ...params,
+    async scan(params = {}) {
+        return new Promise((resolve, reject) => {
+            this._connection.scan(params, (err, data) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(data);
+                }
+            });
         });
     }
 
