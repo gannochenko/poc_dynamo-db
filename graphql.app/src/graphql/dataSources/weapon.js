@@ -15,7 +15,7 @@ export default class WeaponSource {
                 S: data.type.toString(),
             },
             damage: {
-                N: data.damage ? data.damage.toString() : 0,
+                N: data.damage ? data.damage.toString() : '0',
             },
             parameters: {
                 // always check what you save to the database, against a white list
@@ -31,6 +31,7 @@ export default class WeaponSource {
         if (data.id) {
             item.id = {S: data.id.toString()};
         } else {
+            // as we mentioned before, we need to specify a new key explicitly
             item.id = {S: stringGen(12)};
         }
 
@@ -75,6 +76,18 @@ export default class WeaponSource {
         return result;
     }
 
+    async get(id) {
+        const db = await this.getDatabase();
+        return db.getItem({
+            TableName: 'weapon',
+            Key: {
+                id: {
+                    S: id.toString(),
+                },
+            },
+        });
+    }
+
     async getForCharacter(id) {
         const db = await this.getDatabase();
         const result = await db.scan({
@@ -111,18 +124,6 @@ export default class WeaponSource {
         }
 
         return [];
-    }
-
-    async get(id) {
-        const db = await this.getDatabase();
-        return db.getItem({
-            TableName: 'weapon',
-            Key: {
-                id: {
-                    S: id.toString(),
-                },
-            },
-        });
     }
 
     async delete(id) {
