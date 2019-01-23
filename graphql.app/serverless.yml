@@ -1,4 +1,4 @@
-service: my-first-lambda
+service: poc-dynamo-db
 
 # enable required plugins, in order to make what we want
 plugins:

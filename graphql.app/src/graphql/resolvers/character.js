@@ -16,7 +16,7 @@ export default {
             try {
                 result = weaponSource.giveToCharacter(weaponId, characterId);
             } catch(e) {
-                console.error(e);
+                console.log(e);
                 result.error = 'Internal error';
             }
 

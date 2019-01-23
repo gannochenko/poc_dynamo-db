@@ -7,7 +7,7 @@ export default {
             try {
                 await dataSources.weaponSource.put(data);
             } catch(e) {
-                console.error(e);
+                console.log(e);
                 result.error = 'Internal error';
             }
 
@@ -20,7 +20,7 @@ export default {
             try {
                 await dataSources.weaponSource.delete(id);
             } catch(e) {
-                console.error(e);
+                console.log(e);
                 result.error = 'Internal error';
             }
 
